@@ -236,7 +236,7 @@ if depsonly:
 
 else:
     for repository in repositories:
-        repo_name = repository['name']
+        repo_name = repository['full_name']
         if repo_name.startswith("CyanDreamProject/android_device_") and repo_name.endswith("_" + device):
             print("Found repository: %s" % repository['name'])
             
