@@ -200,8 +200,8 @@ define _import-node
 
   $(call _expand-inherited-values,$(1),$(2),$(3))
 
-  $(eval $(1).$(2).inherited :=)
-  $(eval _include_stack := $(wordlist 2,9999,$$(_include_stack)))
+  $(eval $(1).$(2).inherited := 
+  $(eval _include_stack := $(wordlist 2,9999,$$(_include_stack))))
 endef
 
 #
