@@ -195,13 +195,13 @@ define _import-node
   $(call clear-var-list, $(3))
 
   $(eval $(1).$(2).inherited := \
-     $(call get-inherited-nodes,$(1).$(2),$(3)))
+      $(call get-inherited-nodes,$(1).$(2),$(3)))
   $(call _import-nodes-inner,$(1),$($(1).$(2).inherited),$(3))
 
   $(call _expand-inherited-values,$(1),$(2),$(3))
 
-  $(eval $(1).$(2).inherited := 
-  $(eval _include_stack := $(wordlist 2,9999,$$(_include_stack))))
+  $(eval $(1).$(2).inherited :=)
+  $(eval _include_stack := $(wordlist 2,9999,$$(_include_stack)))
 endef
 
 #
