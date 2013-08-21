@@ -891,7 +891,7 @@ SYSTEMIMAGE_SOURCE_DIR := $(TARGET_OUT)
 ifneq ($(INSTALLED_RECOVERYIMAGE_TARGET),)
 intermediates := $(call intermediates-dir-for,PACKAGING,recovery_patch)
 ifndef BOARD_CUSTOM_BOOTIMG_MK
-ifeq ($(CYANDREAM_BUILD),)
+ifeq ($(CM_BUILD),)
 RECOVERY_FROM_BOOT_PATCH := $(intermediates)/recovery_from_boot.p
 else
 RECOVERY_FROM_BOOT_PATCH :=
@@ -1379,7 +1379,7 @@ else
     OTA_FROM_TARGET_SCRIPT := $(TARGET_RELEASETOOL_OTA_FROM_TARGET_SCRIPT)
 endif
 
-ifneq ($(CYANDREAM_BUILD),)
+ifneq ($(CM_BUILD),)
     $(INTERNAL_OTA_PACKAGE_TARGET): backuptool := true
 else
     $(INTERNAL_OTA_PACKAGE_TARGET): backuptool := false
@@ -1401,7 +1401,7 @@ $(INTERNAL_OTA_PACKAGE_TARGET): $(BUILT_TARGET_FILES_PACKAGE) $(DISTTOOLS)
 	   --override_device=$(override_device) \
 	   $(BUILT_TARGET_FILES_PACKAGE) $@
 
-CM_TARGET_PACKAGE := $(PRODUCT_OUT)/CyanDream-$(CYANDREAM_VERSION).zip
+CM_TARGET_PACKAGE := $(PRODUCT_OUT)/cm-$(CM_VERSION).zip
 
 .PHONY: otapackage bacon
 otapackage: $(INTERNAL_OTA_PACKAGE_TARGET)
