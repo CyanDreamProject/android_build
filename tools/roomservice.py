@@ -238,7 +238,7 @@ else:
     for repository in repositories:
         repo_name = repository['full_name']
         if repo_name.startswith("CyanDreamProject/android_device_") and repo_name.endswith("_" + device):
-            print("Found repository: %s" % repository['name'])
+            print("Found repository: %s" % repository['full_name'])
             
             manufacturer = repo_name.replace("CyanDreamProject/android_device_", "").replace("_" + device, "")
             
