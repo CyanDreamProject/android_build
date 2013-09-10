@@ -1423,7 +1423,7 @@ function cmremote()
           return 0
         fi
     fi
-    CMUSER=`git config --get review.review.cyanogenmod.org.username`
+    CMUSER=`git config --get review.yauniks.dynvpn.de.username`
     if [ -z "$CMUSER" ]
     then
         git remote add cmremote ssh://review.cyanogenmod.org:29418/$GERRIT_REMOTE
@@ -1576,7 +1576,7 @@ function cdgerrit() {
         $FUNCNAME help
         return 1
     fi
-    local user=`git config --get review.review.cyanogenmod.org.username`
+    local user=`git config --get review.yauniks.dynvpn.de.username`
     local review=`git config --get remote.github.review`
     local project=`git config --get remote.github.projectname`
     local command=$1
