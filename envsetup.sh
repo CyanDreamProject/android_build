@@ -72,8 +72,8 @@ function check_product()
         return
     fi
 
-    if (echo -n $1 | grep -q -e "^cm_") ; then
-       CM_BUILD=$(echo -n $1 | sed -e 's/^cm_//g')
+    if (echo -n $1 | grep -q -e "^cd_") ; then
+       CM_BUILD=$(echo -n $1 | sed -e 's/^cd_//g')
     else
        CM_BUILD=
     fi
@@ -522,7 +522,7 @@ function breakfast()
             lunch $target
         else
             # This is probably just the CM model name
-            lunch cm_$target-userdebug
+            lunch cd_$target-userdebug
         fi
     fi
     return $?
