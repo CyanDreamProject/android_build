@@ -28,11 +28,11 @@ PRODUCT_PACKAGES += \
     emulator64-arm \
     emulator64-mips \
     libOpenglRender \
-    libGLES_CM_translator \
+    libGLES_CD_translator \
     libGLES_V2_translator \
     libEGL_translator \
     lib64OpenglRender \
-    lib64GLES_CM_translator \
+    lib64GLES_CD_translator \
     lib64GLES_V2_translator \
     lib64EGL_translator
 
@@ -40,7 +40,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     egl.cfg \
     gralloc.goldfish \
-    libGLESv1_CM_emulation \
+    libGLESv1_CD_emulation \
     lib_renderControl_enc \
     libEGL_emulation \
     libGLESv2_enc \
