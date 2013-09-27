@@ -72,8 +72,9 @@ function check_product()
         return
     fi
 
-    if (echo -n $1 | grep -q -e "^cd_") ; then
+    if (echo -n $1 | grep -q -e "^cm_") ; then
        CD_BUILD=$(echo -n $1 | sed -e 's/^cd_//g')
+       BUILD_NUMBER=$((date +%s%N ; echo $CD_BUILD; hostname) | sha1sum | cut -c1-10)
     else
        CD_BUILD=
     fi
