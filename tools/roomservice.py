@@ -51,7 +51,7 @@ except:
     device = product
 
 if not depsonly:
-    print("Device %s not found. Attempting to retrieve device repository from CyanDream Github (http://github.com/CyanDreamProject)." % device)
+    print("Device %s not found. Attempting to retrieve device repository from CyanDream device Github (http://github.com/cyandream-devices)." % device)
 
 repositories = []
 
@@ -71,7 +71,7 @@ def add_auth(githubreq):
 
 page = 1
 while not depsonly:
-    githubreq = urllib.request.Request("https://api.github.com/users/CyanDreamProject/repos?per_page=200&page=%d" % page)
+    githubreq = urllib.request.Request("https://api.github.com/users/cyandream-devices/repos?per_page=200&page=%d" % page)
     add_auth(githubreq)
     result = json.loads(urllib.request.urlopen(githubreq).read().decode())
     if len(result) == 0:
@@ -119,7 +119,7 @@ def get_from_manifest(devicename):
         lm = ElementTree.Element("manifest")
 
     for localpath in lm.findall("project"):
-        if re.search("CyanDreamProject/android_device_.*_%s$" % device, localpath.get("full_name")):
+        if re.search("cyandream-devices/android_device_.*_%s$" % device, localpath.get("full_name")):
             return localpath.get("path")
 
     # Devices originally from AOSP are in the main manifest...
@@ -130,7 +130,7 @@ def get_from_manifest(devicename):
         mm = ElementTree.Element("manifest")
 
     for localpath in mm.findall("project"):
-        if re.search("CyanDreamProject/android_device_.*_%s$" % device, localpath.get("full_name")):
+        if re.search("cyandream-devices/android_device_.*_%s$" % device, localpath.get("full_name")):
             return localpath.get("path")
 
     return None
@@ -237,10 +237,10 @@ if depsonly:
 else:
     for repository in repositories:
         repo_name = repository['full_name']
-        if repo_name.startswith("CyanDreamProject/android_device_") and repo_name.endswith("_" + device):
+        if repo_name.startswith("cyandream-devices/android_device_") and repo_name.endswith("_" + device):
             print("Found repository: %s" % repository['full_name'])
             
-            manufacturer = repo_name.replace("CyanDreamProject/android_device_", "").replace("_" + device, "")
+            manufacturer = repo_name.replace("cyandream-devices/android_device_", "").replace("_" + device, "")
             
             default_revision = get_default_revision()
             print("Default revision: %s" % default_revision)
