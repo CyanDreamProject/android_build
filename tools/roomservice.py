@@ -159,6 +159,30 @@ def is_in_manifest(projectname):
 
     return None
 
+def is_in_manifest_rm(projectname):
+    try:
+        lm = ElementTree.parse(".repo/local_manifests/roomservice.xml")
+        lm = lm.getroot()
+    except:
+        lm = ElementTree.Element("manifest")
+
+    for localpath in lm.findall("remove-project"):
+        if localpath.get("name") == projectname:
+            return 1
+
+    ## Search in main manifest, too
+    try:
+        lm = ElementTree.parse(".repo/manifest.xml")
+        lm = lm.getroot()
+    except:
+        lm = ElementTree.Element("manifest")
+
+    for localpath in lm.findall("remove-project"):
+        if localpath.get("name") == projectname:
+            return 1
+
+    return None
+
 def add_to_manifest(repositories, fallback_branch = None):
     try:
         lm = ElementTree.parse(".repo/local_manifests/roomservice.xml")
@@ -195,7 +219,54 @@ def add_to_manifest(repositories, fallback_branch = None):
     f.write(raw_xml)
     f.close()
 
+def add_to_manifest_rm(repositories, fallback_branch = None):
+    try:
+        lm = ElementTree.parse(".repo/local_manifests/roomservice.xml")
+        lm = lm.getroot()
+    except:
+        lm = ElementTree.Element("manifest")
+
+    for repository in repositories:
+        repo_name = repository['repository']
+        if exists_in_tree(lm, repo_name):
+            print('%s already exists' % (repo_name))
+            continue
+
+        print('Adding removal: %s' % (repo_name))
+        project = ElementTree.Element("remove-project", attrib = { "name": "%s" % repo_name })
+
+        lm.append(project)
+
+    indent(lm, 0)
+    raw_xml = ElementTree.tostring(lm).decode()
+    raw_xml = '<?xml version="1.0" encoding="UTF-8"?>\n' + raw_xml
+
+    f = open('.repo/local_manifests/roomservice.xml', 'w')
+    f.write(raw_xml)
+    f.close()
+
 def fetch_dependencies(repo_path, fallback_branch = None):
+    print('Looking for removals')
+    dependencies_path1 = repo_path + '/cd.remove'
+    syncable_repos = []
+
+    if os.path.exists(dependencies_path1):
+        dependencies_file1 = open(dependencies_path1, 'r')
+        dependencies = json.loads(dependencies_file1.read())
+        fetch_list1 = []
+
+        for dependency in dependencies:
+            if not is_in_manifest_rm("%s" % dependency['repository']):
+                fetch_list1.append(dependency)
+
+        dependencies_file1.close()
+
+        if len(fetch_list1) > 0:
+            print('Adding removals to manifest')
+            add_to_manifest_rm(fetch_list1)
+    else:
+        print('cd.remove file not found, bailing out.')
+
     print('Looking for dependencies')
     dependencies_path = repo_path + '/cd.dependencies'
     syncable_repos = []
