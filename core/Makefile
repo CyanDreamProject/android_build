@@ -1463,6 +1463,7 @@ ifneq ($(TARGET_CUSTOM_RELEASETOOL),)
 endif
 	$(hide) ln -f $(INTERNAL_OTA_PACKAGE_TARGET) $(CD_TARGET_PACKAGE)
 	$(hide) $(MD5SUM) $(CD_TARGET_PACKAGE) > $(CD_TARGET_PACKAGE).md5sum
+	$ sha1sum $(CD_TARGET_PACKAGE) > $(CD_TARGET_PACKAGE).sha1sum
 	@echo -e ${CL_CYN}"Package Complete: $(CD_TARGET_PACKAGE)"${CL_RST}
 
 # -----------------------------------------------------------------
