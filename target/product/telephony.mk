@@ -23,3 +23,7 @@ PRODUCT_PACKAGES := \
     Mms \
     rild
 
+ifeq ($(DUMMY_INCALLUI),true)
+  PRODUCT_PACKAGES := \
+      InCallUI
+endif
